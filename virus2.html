@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nissi, Be My Valentine 💘</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Comic Sans MS', 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 45px 55px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      z-index: 5;
+      max-width: 420px;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 17px;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    img.gif {
+      width: 150px;
+      border-radius: 15px;
+      margin: 10px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #yesBtn {
+      background: #ff3366;
+      color: white;
+      margin-right: 20px;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 15px #ff3366;
+    }
+
+    #noBtn {
+      background: #eee;
+      color: #333;
+      position: fixed;
+      padding: 12px 25px;
+      z-index: 20;
+    }
+
+    .success {
+      font-size: 24px;
+      color: #ff3366;
+      animation: pop 0.7s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.4); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .float-emoji {
+      position: absolute;
+      font-size: 26px;
+      animation: floatUp 4s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-150px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sound effects -->
+  <audio id="noSound" src="https://www.myinstants.com/media/sounds/boing.mp3"></audio>
+  <audio id="yesSound" src="https://www.myinstants.com/media/sounds/anime-wow-sound-effect.mp3"></audio>
+
+  <div class="card" id="card">
+    <img class="gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+    <img class="gif" src="https://media.giphy.com/media/l0HlOvJ7yaacpuSas/giphy.gif">
+
+    <h1>𝓝𝓲𝓼𝓼𝓲 💖</h1>
+    <p>
+      Will you be my Valentine? 💘<br><br>
+      I want every laugh 😂, every deep talk 🌙,  
+      every hard day 😤, and every soft moment 🫂.<br><br>
+      You’re my safe place 🏡, my favorite person 💞,  
+      and the one I choose — always ❤️
+    </p>
+
+    <button id="yesBtn">Yes 🥰💖</button>
+  </div>
+
+  <button id="noBtn">No 😐</button>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const card = document.getElementById("card");
+    const noSound = document.getElementById("noSound");
+    const yesSound = document.getElementById("yesSound");
+
+    const noTexts = [
+      "No 😐",
+      "WAIT 😶",
+      "WHY 😭",
+      "STOP 😤",
+      "THIS IS UNFAIR 😡",
+      "PLEASE 😩",
+      "OKAY FINE 😳",
+      "MISCLICK 😵",
+      "LET ME LIVE 😭💀"
+    ];
+
+    let hoverCount = 0;
+
+    noBtn.style.bottom = "18%";
+    noBtn.style.left = "55%";
+
+    noBtn.addEventListener("mouseover", () => {
+      hoverCount++;
+      noSound.currentTime = 0;
+      noSound.play();
+
+      if (hoverCount < noTexts.length) {
+        noBtn.textContent = noTexts[hoverCount];
+      }
+
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      yesSound.play();
+      card.innerHTML = `
+        <img class="gif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+        <div class="success">
+          YAYYYYY 🥹💘<br><br>
+          𝓝𝓲𝓼𝓼𝓲, you’re officially my Valentine ❤️<br><br>
+          I choose you — today, tomorrow, always 😤💖<br>
+          Come here 🫂💋
+        </div>
+      `;
+      noBtn.style.display = "none";
+      startEmojiRain();
+    });
+
+    function startEmojiRain() {
+      const emojis = ["💖","💘","🥰","😍","😘","🫂","❤️","💕","😤"];
+      setInterval(() => {
+        const e = document.createElement("div");
+        e.className = "float-emoji";
+        e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        e.style.left = Math.random() * window.innerWidth + "px";
+        e.style.bottom = "0px";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 4000);
+      }, 200);
+    }
+  </script>
+
+</body>
+</html>
